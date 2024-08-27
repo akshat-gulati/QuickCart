@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct HomeView: View {
@@ -8,11 +7,11 @@ struct HomeView: View {
     let arrCloth = Cloth.all()
     @State private var selection: Int? = nil
     @State var show = false
+    @State var isTabBarHidden = false  // State to control tab bar visibility
     
     fileprivate func NavigationBarView() -> some View {
         return HStack {
             Spacer()
-            //            NavigationLink(destination: BagView(show: self.$show), isActive: self.$show) {
             Button(action: {
                 self.show.toggle()
                 print("Tapped on notification")
@@ -21,7 +20,7 @@ struct HomeView: View {
             }
             .frame(height: 30)
             .foregroundColor(Constants.AppColor.secondaryBlack)
-            //            }
+           
         }
         .padding(.horizontal, 15)
         .frame(width: UIScreen.main.bounds.width, height: 35)
@@ -72,6 +71,9 @@ struct HomeView: View {
                 HStack(spacing: 5) {
                     ForEach(self.arrCloth.filter { $0.type == "sale" }, id: \.id) { cloth in
                         ItemRow(cloth: cloth)
+                            .onTapGesture {
+                                hideTabBar()  // Hide tab bar on item tap
+                            }
                     }
                 }
                 .padding(.leading, 10)
@@ -105,6 +107,9 @@ struct HomeView: View {
                 HStack(spacing: 5) {
                     ForEach(self.arrCloth.filter { $0.type == "new" }, id: \.id) { cloth in
                         ItemRow(cloth: cloth)
+                            .onTapGesture {
+                                hideTabBar()  // Hide tab bar on item tap
+                            }
                     }
                 }
                 .padding(.leading, 10)
@@ -112,9 +117,16 @@ struct HomeView: View {
         }.padding(.top, 10)
     }
     
+    // Function to hide the tab bar
+    fileprivate func hideTabBar() {
+        isTabBarHidden = true
+        print("Tab bar hidden")
+    }
+    
     var body: some View {
         NavigationView {
             ZStack {
+                
                 VStack {
                     NavigationBarView()
                     ScrollView {
@@ -129,6 +141,9 @@ struct HomeView: View {
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
+            .onAppear {
+                UITabBar.appearance().isHidden = isTabBarHidden
+            }
         }
     }
 }

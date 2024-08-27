@@ -1,5 +1,3 @@
-
-
 import SwiftUI
 
 struct ItemDetailsView: View {
@@ -18,12 +16,11 @@ struct ItemDetailsView: View {
     let cloth: Cloth
     let arrCloth = Cloth.all()
     
-//    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+
     fileprivate func NavigationBarView() -> some View {
         return HStack(alignment: .center) {
             Button(action: {
-//                self.presentationMode.wrappedValue.dismiss()
+
                 self.show.toggle()
             }) {
                 Image(systemName: "arrow.left")
@@ -55,7 +52,6 @@ struct ItemDetailsView: View {
             //.background(Color.white)
         }
         .cornerRadius(20)
-        //                .shadow(color: Constants.AppColor.shadowColor, radius: 2, x: 0.8, y: 0.8)
     }
     
     fileprivate func ImageSlider() -> some View {
@@ -67,7 +63,6 @@ struct ItemDetailsView: View {
             }
         }
         .aspectRatio(4/3, contentMode: .fit)
-//        .frame(width: UIScreen.main.bounds.width, height: 250)
     }
     
     fileprivate func SimilerProduct() -> some View {
@@ -106,7 +101,7 @@ struct ItemDetailsView: View {
             
         }) {
             Text("")
-                .frame(height: 65)
+                .frame(height: 70)
                 .frame(minWidth: 0, maxWidth: .infinity)
                 .background(Constants.AppColor.gradientRedHorizontal)
                 .cornerRadius(0)
@@ -206,8 +201,6 @@ struct ItemDetailsView: View {
                                         .foregroundColor(.white)
                                         .padding(.trailing, 6)
                                 }.frame(height: 20)
-                                    //                                .overlay(RoundedRectangle(cornerRadius: 15)
-                                    //                                .stroke(Color.green, lineWidth: 0.5))
                                     .background(Color.green)
                                     .cornerRadius(10)
                             }
@@ -268,10 +261,12 @@ struct ItemDetailsView: View {
                 }
             }
             AddToCartButton()
-        }.edgesIgnoringSafeArea(.bottom)
-            .navigationBarTitle(Text(""), displayMode: .inline)
-            .navigationBarHidden(true)
-            .navigationBarBackButtonHidden(true)
+        }
+        .edgesIgnoringSafeArea(.bottom)
+        .navigationBarTitle(Text(""), displayMode: .inline)
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
+//        .toolbar(.hidden, for: .tabBar)  // Hide the tab bar
     }
 }
 

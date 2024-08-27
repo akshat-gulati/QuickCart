@@ -1,56 +1,69 @@
-
-
 import SwiftUI
 import Combine
 
 struct ProfileView: View {
-    
+
     @State var selection: Int? = nil
     let arrProfile = ProfileModel.all()
-    
+    @State var show = false
+
+    // Replacing the NavigationBarView with the one from HomeView
     fileprivate func NavigationBarView() -> some View {
         return HStack {
-            Text("")
+            Spacer()
+            Button(action: {
+                self.show.toggle()
+                print("Tapped on notification")
+            }) {
+//                Image(systemName: "bell")
+            }
+            .frame(height: 30)
+            .foregroundColor(Constants.AppColor.secondaryBlack)
         }
-        .frame(width: UIScreen.main.bounds.width, height: 45)
+        .padding(.horizontal, 15)
+        .frame(width: UIScreen.main.bounds.width, height: 35)
         .overlay(
-            Text("More")
+            Text("Profile")
                 .font(.custom(Constants.AppFont.semiBoldFont, size: 15))
+                .foregroundColor(Constants.AppColor.primaryBlack)
                 .padding(.horizontal, 10)
             , alignment: .center)
     }
-    
+
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading) {
+            VStack(spacing: 0) { // Use VStack to keep the navigation bar fixed at the top
                 NavigationBarView()
-                HStack {
-                    Image("banner2")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 80, height: 80)
-                        .clipShape(Circle())
-                        .padding(.leading, 15)
+                ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading) {
-                        Text("Your Name")
-                            .font(.headline)
-                            .bold()
-                        Text("youremail@gmail.com")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }.padding(.horizontal, 5)
-                    Spacer()
-                }.padding(.vertical, 10)
-                
-                ScrollView(.vertical, showsIndicators: false, content: {
-                    VStack(spacing: 10) {
-                        ForEach(self.arrProfile, id: \.id) { profile in
-                            ProfileRow(profile: profile)
+                        HStack {
+                            Image("banner2")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 80, height: 80)
+                                .clipShape(Circle())
+                                .padding(.leading, 15)
+                            VStack(alignment: .leading) {
+                                Text("Lucy")
+                                    .font(.headline)
+                                    .bold()
+                                Text("Lucy@gmail.com")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            .padding(.horizontal, 5)
+                            Spacer()
                         }
+                        .padding(.vertical, 10)
+                        
+                        VStack(spacing: 10) {
+                            ForEach(self.arrProfile, id: \.id) { profile in
+                                ProfileRow(profile: profile)
+                            }
+                        }
+                        .padding(.horizontal, 15)
                     }
-                    .padding(.horizontal, 15)
-                })
-                
+                }
                 Spacer()
             }
             .navigationBarTitle(Text(""), displayMode: .inline)
@@ -67,9 +80,9 @@ struct ProfileView_Previews: PreviewProvider {
 }
 
 struct ProfileRow: View {
-    
+
     let profile: ProfileModel
-    
+
     var body: some View {
         ZStack(alignment: .leading) {
             Rectangle()

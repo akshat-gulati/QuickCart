@@ -1,5 +1,3 @@
-
-
 import SwiftUI
 
 struct Shopping: View {
@@ -10,31 +8,30 @@ struct Shopping: View {
     
     fileprivate func NavigationBarView() -> some View {
         return HStack {
-            Text("")
-        }
-        .frame(width: UIScreen.main.bounds.width, height: 35)
-        .overlay(
+            Spacer()
             Text("Categories")
                 .font(.custom(Constants.AppFont.semiBoldFont, size: 15))
                 .foregroundColor(Constants.AppColor.primaryBlack)
                 .padding(.horizontal, 10)
-            , alignment: .center)
+            Spacer()
+        }
+        .frame(width: UIScreen.main.bounds.width, height: 35)
     }
     
     var body: some View {
         
         NavigationView {
-            VStack {
+            VStack(spacing: 0) { // Keep the navigation bar fixed at the top
                 NavigationBarView()
                 Picker("", selection: $selectorIndex) {
                     Text("Kids").tag(0)
                     Text("Women").tag(1)
-                    Text("men").tag(2)
+                    Text("Men").tag(2)
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(.horizontal, 15)
                 .padding(.vertical, 10)
-                
+                ScrollView(.vertical, showsIndicators: false) {
                 VStack {
                     Text("SUMMER SALES")
                         .font(.custom(Constants.AppFont.boldFont, size: 20))
@@ -50,34 +47,24 @@ struct Shopping: View {
                 .background(Constants.AppColor.gradientRedVertical)
                 .foregroundColor(.white)
                 .cornerRadius(10)
+                .padding(.horizontal, 15)
                 
-                if selectorIndex == 0 {
-                    ScrollView(.vertical, showsIndicators: false, content: {
-                        VStack(spacing: 10) {
+                VStack(spacing: 10) {
+                        if selectorIndex == 0 {
                             ForEach(self.arrCategory.kids, id: \.id) { category in
                                 CategoryRow(category: category, selectorIndex: self.selectorIndex)
                             }
-                        }
-                        .padding(.horizontal, 15)
-                    })
-                } else if selectorIndex == 1 {
-                    ScrollView(.vertical, showsIndicators: false, content: {
-                        VStack(spacing: 10) {
+                        } else if selectorIndex == 1 {
                             ForEach(self.arrCategory.women, id: \.id) { category in
                                 CategoryRow(category: category, selectorIndex: self.selectorIndex)
                             }
-                        }
-                        .padding(.horizontal, 15)
-                    })
-                } else {
-                    ScrollView(.vertical, showsIndicators: false, content: {
-                        VStack(spacing: 10) {
+                        } else {
                             ForEach(self.arrCategory.men, id: \.id) { category in
                                 CategoryRow(category: category, selectorIndex: self.selectorIndex)
                             }
                         }
-                        .padding(.horizontal, 15)
-                    })
+                    }
+                    .padding(.horizontal, 15)
                 }
                 
                 Spacer()

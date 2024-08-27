@@ -15,7 +15,7 @@ struct ItemRow: View {
             .background(cloth.type == "new" ? Constants.AppColor.primaryBlack : Color.init(hex: "DB3022"))
             .cornerRadius(12.5)
             .foregroundColor(.white)
-        //.shadow(color: Color.init(hex: "444444"), radius: 1, x: 0.5, y: 0.5)
+       
     }
     
     fileprivate func FevoriteButton() -> some View {
