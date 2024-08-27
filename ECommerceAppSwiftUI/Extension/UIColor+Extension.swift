@@ -1,10 +1,3 @@
-//
-//  UIColor+Extension.swift
-//  ECommerceAppSwiftUI
-//
-//  Created by Ayush Gupta on 20/12/19.
-//  Copyright © 2019 Ayush Gupta. All rights reserved.
-//
 
 import UIKit
 import Foundation
